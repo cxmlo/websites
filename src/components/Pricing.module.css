@@ -1,0 +1,114 @@
+.section { padding: 6rem 0; border-top: 1px solid var(--border); }
+
+.header { margin-bottom: 2.5rem; opacity: 0; }
+.header.fade-in-up { animation: fadeInUp 0.6s ease forwards; }
+
+.title { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--text); margin-bottom: 0.5rem; line-height: 1; }
+.prefix { color: var(--text-dimmer); }
+.subtitle { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 1.5rem; max-width: 55ch; line-height: 1.6; }
+
+.controls { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+
+.currencySwitch { display: inline-flex; border: 1px solid var(--border); overflow: hidden; }
+.switchBtn { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; background: none; border: none; border-right: 1px solid var(--border); color: var(--text-dim); padding: 0.4rem 1rem; cursor: none; transition: all 0.2s; }
+.switchBtn:last-child { border-right: none; }
+.switchActive { background: var(--bg3); color: var(--text); }
+
+.catFilter { display: flex; gap: 0; border: 1px solid var(--border); overflow: hidden; }
+.catBtn { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: none; border-right: 1px solid var(--border); color: var(--text-dimmer); padding: 0.4rem 0.85rem; cursor: none; transition: all 0.2s; white-space: nowrap; }
+.catBtn:last-child { border-right: none; }
+.catBtn:hover { color: var(--text-dim); background: var(--bg2); }
+.catActive { color: var(--text) !important; background: var(--bg3) !important; }
+
+/* ── TABLE ─────────────────────────────────────────────── */
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+  /* extra space at top so the "recomendado" tag is visible */
+  padding-top: 1.75rem;
+  background: var(--bg2);
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-bright) var(--bg);
+}
+
+.table { width: 100%; border-collapse: collapse; min-width: 640px; }
+
+/* THEAD */
+.thFeature {
+  width: 34%;
+  padding: 1.25rem 1.25rem 1rem;
+  text-align: left;
+  vertical-align: bottom;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-bright);
+  background: var(--bg);
+}
+.thFeatureLabel { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--text-dimmer); }
+
+.thPlan {
+  width: 22%;
+  padding: 1.25rem 1rem 1rem;
+  text-align: center;
+  vertical-align: bottom;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-bright);
+  background: var(--bg2);
+  position: relative;
+}
+.thPlan:last-child { border-right: none; }
+
+.thPlanFeatured {
+  background: var(--bg3);
+  border-left: 1px solid var(--border-bright);
+  border-right: 1px solid var(--border-bright);
+}
+
+/* Tag "recomendado" — sits ABOVE the table */
+.featuredTag {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: var(--bg3);
+  border: 1px solid var(--border-bright);
+  border-bottom: none;
+  padding: 0.25rem 0.75rem;
+  white-space: nowrap;
+}
+
+.planName { display: block; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem; }
+.planPrice { display: block; font-family: var(--font-display); font-size: 1.9rem; color: var(--text); line-height: 1; margin-bottom: 0.5rem; }
+.planDesc { display: block; font-size: 0.72rem; color: var(--text-dimmer); line-height: 1.45; margin-bottom: 1rem; min-height: 2.5em; }
+
+.planCta { width: 100%; justify-content: center; font-size: 0.72rem !important; padding: 0.5rem 0.75rem !important; }
+
+/* TBODY */
+.catRow { background: var(--bg); }
+.catLabel { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: lowercase; color: var(--text-dimmer); padding: 0.6rem 1.25rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.row { transition: background 0.15s; }
+.row:hover { background: var(--bg3) !important; }
+.rowAlt { background: rgba(255,255,255,0.015); }
+
+.tdFeature { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-dim); padding: 0.7rem 1.25rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); letter-spacing: 0.02em; }
+
+.tdVal { text-align: center; padding: 0.7rem 0.75rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.78rem; }
+.tdVal:last-child { border-right: none; }
+.tdFeatured { background: rgba(255,255,255,0.025); border-left: 1px solid var(--border-bright); border-right: 1px solid var(--border-bright); }
+
+.cellCheck { color: var(--text-dim); font-size: 0.85rem; }
+.cellCheckPro { color: var(--text); font-weight: 700; }
+.cellNope { color: var(--text-dimmer); font-size: 0.75rem; opacity: 0.4; }
+.cellText { color: var(--text-dim); font-size: 0.75rem; }
+
+.note { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dimmer); line-height: 1.6; padding: 0.85rem 1rem; border: 1px solid var(--border); background: var(--bg2); }
+
+@media (max-width: 900px) { .section { padding: 4rem 0; } .controls { flex-direction: column; align-items: flex-start; } }
