@@ -109,8 +109,17 @@ export default function Pricing() {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th className={styles.thFeature}>
-                  <span className={styles.thFeatureLabel}>// característica</span>
+                <th className={styles.thFeature} style={{ background: 'transparent', textAlign: 'center', verticalAlign: 'middle' }}>
+                  <span style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '2.25rem',
+                    color: 'var(--text)',
+                    opacity: 0.9,
+                    lineHeight: 1,
+                    letterSpacing: '0.05em',
+                    display: 'block',
+                    userSelect: 'none',
+                  }}> | DEVSTUDIO |</span>
                 </th>
                 {PLANS.map(p => (
                   <th key={p.id} className={`${styles.thPlan} ${p.tag ? styles.thPlanFeatured : ''}`}>

@@ -108,7 +108,7 @@ const TECH_LOGOS = [
     }
   },
   {
-    id: 'nextjs', label: 'Next.js', color: '#e8e8e8',
+    id: 'nextjs', label: 'Next.js', color: '#000000',
     draw: (ctx, t) => {
       ctx.save()
       const r = 34 + Math.sin(t * 0.8) * 2
