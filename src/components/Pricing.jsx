@@ -155,6 +155,41 @@ export default function Pricing() {
           </table>
         </div>
 
+
+        {/* ── MOBILE CARDS (shown only on mobile via CSS) ── */}
+        <div className={styles.mobileCards}>
+          {PLANS.map((plan) => {
+            const isFeatured = plan.tag === 'recomendado'
+            const feats = FEATURE_ROWS.filter((_, i) => i < 10)
+            return (
+              <div key={plan.id} className={`${styles.mobileCard} ${isFeatured ? styles.mobileCardFeatured : ''}`}>
+                {plan.tag && <span className={styles.mobileTag}>{plan.tag}</span>}
+                <div className={styles.mobileHead}>
+                  <div>
+                    <span className={styles.mobileName}>{plan.name}</span>
+                    <span className={styles.mobilePrice}>{plan.price[currency]}</span>
+                  </div>
+                </div>
+                <p className={styles.mobileDesc}>{plan.desc}</p>
+                <ul className={styles.mobileFeatures}>
+                  {feats.map(row => {
+                    const val = plan.id === 'starter' ? row.starter : plan.id === 'pro' ? row.pro : row.enterprise
+                    const ok = val !== '—'
+                    return (
+                      <li key={row.label} className={styles.mobileFeature}>
+                        <span className={ok ? styles.mobileCheckY : styles.mobileCheckN}>{ok ? '▸' : '—'}</span>
+                        <span style={!ok ? {opacity:0.45} : {}}>{row.label}{val !== '✓' && val !== '—' ? `: ${val}` : ''}</span>
+                      </li>
+                    )
+                  })}
+                </ul>
+                <button className={`btn ${isFeatured ? 'btn-primary' : ''} ${styles.mobileCta}`} onClick={() => handleCta(plan.id)}>
+                  <span>cotizar {plan.name} →</span>
+                </button>
+              </div>
+            )
+          })}
+        </div>
         <p className={styles.note}>
           * Precios desde. El costo final depende de los requerimientos del proyecto.
           Todos los planes incluyen dominio .com y hosting por 1 año.

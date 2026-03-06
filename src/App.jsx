@@ -13,6 +13,10 @@ import LegalModal from './components/LegalModal'
 import CookieBanner from './components/CookieBanner'
 import './index.css'
 
+// Apply saved theme before render
+const savedTheme = localStorage.getItem('devstudio-theme') || 'light'
+document.documentElement.setAttribute('data-theme', savedTheme)
+
 function Cursor() {
   const { pos, hovering, clicking } = useCursor()
   return (
@@ -26,36 +30,43 @@ function Cursor() {
 function Loader({ onDone }) {
   const [progress, setProgress] = useState(0)
   const [text, setText] = useState('inicializando...')
+  const theme = document.documentElement.getAttribute('data-theme')
+  const isDark = theme === 'dark'
+  const loaderBg    = isDark ? '#0a0a0a' : '#f4f1eb'
+  const loaderText  = isDark ? '#e8e8e8' : '#1a1714'
+  const trackColor  = isDark ? '#2a2a2a' : '#c8c0b0'
+  const barColor    = isDark ? '#888'    : '#5a5248'
+  const subColor    = isDark ? '#555'    : '#9a9080'
 
   useEffect(() => {
     const steps = [
-      { p: 25, t: 'cargando assets...', delay: 300 },
-      { p: 55, t: 'compilando estilos...', delay: 700 },
-      { p: 80, t: 'montando componentes...', delay: 1100 },
-      { p: 100, t: 'listo.', delay: 1600 },
+      { p: 25, t: 'cargando assets...',       delay: 300  },
+      { p: 55, t: 'compilando estilos...',     delay: 700  },
+      { p: 80, t: 'montando componentes...',   delay: 1100 },
+      { p: 100, t: 'listo.',                   delay: 1600 },
     ]
     steps.forEach(({ p, t, delay }) => {
-      setTimeout(() => {
-        setProgress(p)
-        setText(t)
-        if (p === 100) setTimeout(onDone, 500)
-      }, delay)
+      setTimeout(() => { setProgress(p); setText(t); if (p === 100) setTimeout(onDone, 500) }, delay)
     })
   }, [onDone])
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, background: '#0a0a0a',
-      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-      zIndex: 99999, fontFamily: "'Share Tech Mono', monospace"
+      position: 'fixed', inset: 0,
+      background: loaderBg,
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
+      zIndex: 99999, fontFamily: "'Share Tech Mono', monospace",
+      padding: '1rem',
+      textAlign: 'center',
     }}>
-      <div style={{ fontSize: '2.5rem', letterSpacing: '0.3em', color: '#e8e8e8', marginBottom: '2rem' }}>
+      <div style={{ fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', letterSpacing: '0.2em', color: loaderText, marginBottom: '2rem', whiteSpace: 'nowrap' }}>
         &gt;_ DEVSTUDIO
       </div>
-      <div style={{ width: '280px', height: '1px', background: '#2a2a2a', marginBottom: '0.75rem', overflow: 'hidden' }}>
-        <div style={{ height: '100%', background: '#888', width: `${progress}%`, transition: 'width 0.4s ease' }} />
+      <div style={{ width: 'min(280px, 80vw)', height: '1px', background: trackColor, marginBottom: '0.75rem', overflow: 'hidden' }}>
+        <div style={{ height: '100%', background: barColor, width: `${progress}%`, transition: 'width 0.4s ease' }} />
       </div>
-      <div style={{ fontSize: '0.72rem', color: '#555', letterSpacing: '0.1em' }}>
+      <div style={{ fontSize: '0.72rem', color: subColor, letterSpacing: '0.1em' }}>
         {text} [{progress}%]
       </div>
     </div>
@@ -64,23 +75,16 @@ function Loader({ onDone }) {
 
 export default function App() {
   const [loading, setLoading] = useState(true)
-  const [legalPage, setLegalPage] = useState(null) // null | 'privacidad' | 'terminos' | 'cookies' | 'contacto-legal'
+  const [legalPage, setLegalPage] = useState(null)
   const handleDone = useCallback(() => setLoading(false), [])
-
-  // When LegalModal asks to switch tabs, it calls onClose(newId)
-  // If newId is a string, open that page. If undefined/null, close.
   const handleLegalClose = useCallback((newPage) => {
-    if (typeof newPage === 'string') {
-      setLegalPage(newPage)
-    } else {
-      setLegalPage(null)
-    }
+    if (typeof newPage === 'string') setLegalPage(newPage)
+    else setLegalPage(null)
   }, [])
 
   return (
     <>
       {loading && <Loader onDone={handleDone} />}
-
       {!loading && (
         <>
           <Cursor />
@@ -96,12 +100,7 @@ export default function App() {
           <Footer onOpenLegal={(id) => setLegalPage(id)} />
           <WhatsAppFloat />
           <CookieBanner onOpenCookies={() => setLegalPage('cookies')} />
-          {legalPage && (
-            <LegalModal
-              page={legalPage}
-              onClose={handleLegalClose}
-            />
-          )}
+          {legalPage && <LegalModal page={legalPage} onClose={handleLegalClose} />}
         </>
       )}
     </>

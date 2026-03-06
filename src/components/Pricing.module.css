@@ -84,31 +84,85 @@
   white-space: nowrap;
 }
 
-.planName { display: block; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem; }
-.planPrice { display: block; font-family: var(--font-display); font-size: 1.9rem; color: var(--text); line-height: 1; margin-bottom: 0.5rem; }
-.planDesc { display: block; font-size: 0.72rem; color: var(--text-dimmer); line-height: 1.45; margin-bottom: 1rem; min-height: 2.5em; }
+.planName { display: block; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text); margin-bottom: 0.5rem; }
+.planPrice { display: block; font-family: var(--font-display); font-size: 1.9rem; color: var(--text); line-height: 1; margin-bottom: 0.5rem; text-shadow: 0 0 20px var(--accent-glow); }
+.planDesc { display: block; font-size: 0.72rem; color: var(--text-dim); line-height: 1.45; margin-bottom: 1rem; min-height: 2.5em; }
 
 .planCta { width: 100%; justify-content: center; font-size: 0.72rem !important; padding: 0.5rem 0.75rem !important; }
 
 /* TBODY */
 .catRow { background: var(--bg); }
-.catLabel { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: lowercase; color: var(--text-dimmer); padding: 0.6rem 1.25rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.catLabel { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: lowercase; color: var(--text-dim); padding: 0.6rem 1.25rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
 .row { transition: background 0.15s; }
 .row:hover { background: var(--bg3) !important; }
-.rowAlt { background: rgba(255,255,255,0.015); }
+.rowAlt { background: rgba(255,255,255,0.02); }
 
-.tdFeature { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-dim); padding: 0.7rem 1.25rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); letter-spacing: 0.02em; }
+.tdFeature { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text); padding: 0.7rem 1.25rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); letter-spacing: 0.02em; }
 
-.tdVal { text-align: center; padding: 0.7rem 0.75rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.78rem; }
+.tdVal { text-align: center; padding: 0.7rem 0.75rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.78rem; color: var(--text); }
 .tdVal:last-child { border-right: none; }
-.tdFeatured { background: rgba(255,255,255,0.025); border-left: 1px solid var(--border-bright); border-right: 1px solid var(--border-bright); }
+.tdFeatured { background: rgba(255,255,255,0.03); border-left: 1px solid var(--border-bright); border-right: 1px solid var(--border-bright); }
 
 .cellCheck { color: var(--text-dim); font-size: 0.85rem; }
 .cellCheckPro { color: var(--text); font-weight: 700; }
-.cellNope { color: var(--text-dimmer); font-size: 0.75rem; opacity: 0.4; }
-.cellText { color: var(--text-dim); font-size: 0.75rem; }
+.cellNope { color: var(--text-dimmer); font-size: 0.75rem; opacity: 0.5; }
+.cellText { color: var(--text); font-size: 0.75rem; }
 
-.note { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dimmer); line-height: 1.6; padding: 0.85rem 1rem; border: 1px solid var(--border); background: var(--bg2); }
+.note { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); line-height: 1.6; padding: 0.85rem 1rem; border: 1px solid var(--border); background: var(--bg2); }
 
 @media (max-width: 900px) { .section { padding: 4rem 0; } .controls { flex-direction: column; align-items: flex-start; } }
+
+/* ── MOBILE PRICING CARDS ───────────────────────────────── */
+@media (max-width: 768px) {
+  .section { padding: 3.5rem 0; }
+
+  /* Hide comparison table on mobile */
+  .tableWrap { display: none; }
+
+  /* Show mobile cards instead */
+  .mobileCards {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+
+  .mobileCard {
+    padding: 1.75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    transition: background 0.2s;
+  }
+  .mobileCard:last-child { border-bottom: none; }
+  .mobileCardFeatured {
+    background: var(--bg3);
+    border-left: 3px solid var(--border-bright);
+  }
+
+  .mobileTag {
+    font-family: var(--font-mono);
+    font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-dim); background: var(--bg3);
+    border: 1px solid var(--border-bright);
+    padding: 0.2rem 0.6rem; display: inline-block; margin-bottom: 0.75rem;
+  }
+
+  .mobileHead { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 0.75rem; }
+  .mobileName { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 0.25rem; }
+  .mobilePrice { font-family: var(--font-display); font-size: 2.2rem; color: var(--text); line-height: 1; }
+  .mobileDesc { font-size: 0.8rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 1.1rem; }
+
+  .mobileFeatures { list-style: none; margin-bottom: 1.25rem; }
+  .mobileFeature { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text); display: flex; gap: 0.6rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); }
+  .mobileFeature:last-child { border-bottom: none; }
+  .mobileCheckY { color: var(--text); }
+  .mobileCheckN { color: var(--text-dimmer); opacity: 0.45; }
+
+  .mobileCta { width: 100%; justify-content: center; }
+}
+
+@media (min-width: 769px) {
+  .mobileCards { display: none; }
+}

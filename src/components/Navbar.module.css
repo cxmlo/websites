@@ -1,160 +1,82 @@
 .nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   border-bottom: 1px solid transparent;
-  transition: background 0.3s ease, border-color 0.3s ease;
-  padding: 1.25rem 0;
+  transition: background 0.3s ease, border-color 0.3s ease, padding 0.3s ease;
+  padding: 1.1rem 0;
 }
-
 .scrolled {
-  background: rgba(10, 10, 10, 0.95);
+  background: var(--navbar-bg);
   border-bottom-color: var(--border);
   backdrop-filter: blur(8px);
-  padding: 0.9rem 0;
+  padding: 0.75rem 0;
 }
 
-.inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-}
+.inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  color: var(--text);
-  cursor: none;
-}
+/* Logo */
+.logo { display: flex; align-items: center; gap: 0.4rem; text-decoration: none; font-family: var(--font-mono); font-size: 1rem; letter-spacing: 0.08em; color: var(--text); cursor: none; flex-shrink: 0; }
+.logoSymbol { color: var(--text-dim); font-size: 0.9rem; }
+.logoText { font-weight: 700; letter-spacing: 0.15em; }
+.logoCursor { animation: blink 1s step-end infinite; color: var(--text-dim); font-size: 0.7rem; }
 
-.logoSymbol {
-  color: var(--text-dim);
-  font-size: 0.9rem;
-}
+/* Nav links */
+.links { display: flex; align-items: center; gap: 0.1rem; list-style: none; }
+.link { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; color: var(--text-dim); background: none; border: none; cursor: none; padding: 0.5rem 0.65rem; position: relative; transition: color 0.2s ease; white-space: nowrap; }
+.prefix { opacity: 0; transition: opacity 0.2s; color: var(--text-dimmer); }
+.link:hover { color: var(--text); }
+.link:hover .prefix { opacity: 1; }
+.activeLink { color: var(--text); }
+.activeLink .prefix { opacity: 1; }
+.link::after { content: ''; position: absolute; bottom: 0; left: 0.65rem; right: 0.65rem; height: 1px; background: var(--text); transform: scaleX(0); transition: transform 0.2s ease; }
+.link:hover::after, .activeLink::after { transform: scaleX(1); }
 
-.logoText {
-  font-weight: 700;
-  letter-spacing: 0.15em;
-}
+.ctaWrap { margin-left: 0.75rem; }
+.ctaBtn { font-size: 0.75rem !important; padding: 0.5rem 1rem !important; }
 
-.cursor {
-  animation: blink 1s step-end infinite;
-  color: var(--text-dim);
-  font-size: 0.7rem;
-}
+/* Right controls */
+.rightControls { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
 
-.links {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  list-style: none;
+/* Theme toggle */
+.themeBtn {
+  display: flex; align-items: center; gap: 0.35rem;
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-dim);
+  background: none; border: 1px solid var(--border);
+  padding: 0.35rem 0.65rem; cursor: none;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  white-space: nowrap;
 }
+.themeBtn:hover { color: var(--text); border-color: var(--border-bright); background: var(--bg2); }
+.themeIcon { font-size: 0.8rem; line-height: 1; }
+.themeLabel { display: none; }
+@media (min-width: 480px) { .themeLabel { display: inline; } }
 
-.link {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  color: var(--text-dim);
-  background: none;
-  border: none;
-  cursor: none;
-  padding: 0.5rem 0.75rem;
-  position: relative;
-  transition: color 0.2s ease;
-}
-
-.prefix {
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  color: var(--text-dimmer);
-}
-
-.link:hover {
-  color: var(--text);
-}
-
-.link:hover .prefix {
-  opacity: 1;
-}
-
-.activeLink {
-  color: var(--text);
-}
-
-.activeLink .prefix {
-  opacity: 1;
-}
-
-.link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0.75rem;
-  right: 0.75rem;
-  height: 1px;
-  background: var(--text);
-  transform: scaleX(0);
-  transition: transform 0.2s ease;
-}
-
-.link:hover::after, .activeLink::after {
-  transform: scaleX(1);
-}
-
-.ctaBtn {
-  margin-left: 1rem;
-  font-size: 0.75rem !important;
-  padding: 0.5rem 1rem !important;
-}
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: none;
-  padding: 0.25rem;
-}
-
-.hamburger span {
-  display: block;
-  width: 22px;
-  height: 1px;
-  background: var(--text);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.hamburgerOpen span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+/* Hamburger */
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 0.35rem; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); transition: transform 0.3s ease, opacity 0.3s ease; }
+.hamburgerOpen span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .hamburgerOpen span:nth-child(2) { opacity: 0; }
-.hamburgerOpen span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.hamburgerOpen span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
+/* Overlay */
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; }
+
+/* Mobile */
 @media (max-width: 768px) {
   .hamburger { display: flex; }
+  .themeLabel { display: none !important; }
 
   .links {
-    position: fixed;
-    top: 0; right: 0;
-    width: min(320px, 100vw);
-    height: 100vh;
-    background: var(--bg2);
-    border-left: 1px solid var(--border);
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 5rem 2rem 2rem;
-    gap: 0.5rem;
-    transform: translateX(100%);
-    transition: transform 0.35s ease;
+    position: fixed; top: 0; right: 0;
+    width: min(300px, 85vw); height: 100vh;
+    background: var(--bg2); border-left: 1px solid var(--border);
+    flex-direction: column; align-items: flex-start;
+    padding: 5rem 1.5rem 2rem; gap: 0.25rem;
+    transform: translateX(100%); transition: transform 0.35s ease;
+    z-index: 1001; list-style: none;
   }
-
   .open { transform: translateX(0); }
-
-  .link { font-size: 1rem; padding: 0.75rem 0; }
-  .ctaBtn { margin-left: 0; margin-top: 1rem; }
+  .link { font-size: 1rem; padding: 0.85rem 0; width: 100%; text-align: left; cursor: auto; }
+  .ctaWrap { margin-left: 0; margin-top: 1rem; width: 100%; }
+  .ctaBtn { width: 100%; justify-content: center; cursor: auto; }
 }

@@ -5,97 +5,148 @@ import styles from './Services.module.css'
 const SERVICES = [
   {
     id: '01',
-    icon: '⬡',
+    icon: '▲',
     title: 'Landing Pages',
-    desc: 'Páginas de aterrizaje optimizadas para convertir visitantes en clientes. Velocidad máxima, diseño que vende.',
-    features: ['Diseño personalizado', 'Optimización de conversión', 'Formularios integrados', 'A/B testing listo'],
-    tag: 'más popular',
+    tag: 'especialidad',
+    price: 'Desde $1.500.000 COP',
+    desc: 'Una página enfocada en un solo objetivo: que el visitante actúe. Cotización, compra, registro — sin distracciones.',
+    features: [
+      'Diseño 100% personalizado en Figma',
+      'Optimizada para Google Ads y Meta Ads',
+      'Formulario con validación y notificación',
+      'Botón WhatsApp integrado',
+      'Velocidad 90+ en PageSpeed',
+      'Entrega en 7–10 días hábiles',
+    ],
+    stack: ['React', 'TypeScript'],
+    wa: 'Hola! Me interesa una Landing Page.',
   },
   {
     id: '02',
-    icon: '⬢',
+    icon: '◈',
     title: 'Tiendas Online',
-    desc: 'E-commerce robusto con carrito, pagos seguros y gestión de inventario. Tu negocio abierto 24/7.',
-    features: ['WooCommerce / Shopify', 'Pagos PSE / Nequi / Tarjeta', 'Panel de gestión', 'SEO para productos'],
-    tag: null,
+    tag: 'especialidad',
+    price: 'Desde $3.800.000 COP',
+    desc: 'Tu negocio abierto 24/7. Catálogo, carrito, pagos y gestión de pedidos — todo en un solo lugar.',
+    features: [
+      'Catálogo de productos ilimitado',
+      'Pagos PSE · Nequi · Tarjeta crédito/débito',
+      'Panel de administración fácil de usar',
+      'SEO para productos y categorías',
+      'Integración con redes sociales',
+      'Soporte técnico 90 días',
+    ],
+    stack: ['React', 'WooCommerce'],
+    wa: 'Hola! Me interesa una Tienda Online.',
   },
   {
     id: '03',
-    icon: '◈',
-    title: 'Sitios Corporativos',
-    desc: 'Presencia digital profesional para empresas. Credibilidad, autoridad y captación de leads.',
-    features: ['Multi-página', 'Blog / noticias', 'Formularios de contacto', 'Google My Business'],
-    tag: null,
+    icon: '◎',
+    title: 'SEO & Posicionamiento',
+    tag: 'complementario',
+    price: 'Cotización',
+    desc: 'De nada sirve una web bonita si nadie la encuentra. Optimizamos para que Google te muestre primero.',
+    features: [
+      'Auditoría SEO inicial completa',
+      'Optimización técnica on-page',
+      'Meta títulos y descripciones',
+      'Velocidad y Core Web Vitals',
+      'Google Search Console configurado',
+      'Reporte mensual de posiciones',
+    ],
+    stack: ['Google Search Console', 'Analytics'],
+    wa: 'Hola! Me interesa el servicio de SEO.',
   },
   {
     id: '04',
-    icon: '◆',
-    title: 'Portafolios',
-    desc: 'Muestra tu trabajo de forma impactante. Ideal para creativos, fotógrafos, arquitectos y freelancers.',
-    features: ['Galería interactiva', 'Animaciones suaves', 'Optimizado para móvil', 'CMS fácil de editar'],
-    tag: null,
-  },
-  {
-    id: '05',
-    icon: '◇',
-    title: 'Web Apps',
-    desc: 'Aplicaciones web a medida para automatizar procesos, gestionar datos o escalar tu negocio.',
-    features: ['React / Next.js', 'APIs personalizadas', 'Dashboard admin', 'Escalable en la nube'],
-    tag: 'nuevo',
-  },
-  {
-    id: '06',
-    icon: '▣',
-    title: 'Mantenimiento & SEO',
-    desc: 'Mantén tu web segura, actualizada y visible en Google. Plan mensual sin sorpresas.',
-    features: ['Backups automáticos', 'Actualizaciones', 'Reporte mensual SEO', 'Soporte prioritario'],
-    tag: null,
+    icon: '⬡',
+    title: 'Mantenimiento',
+    tag: 'plan mensual',
+    price: 'Desde $350.000 / mes',
+    desc: 'Tu web actualizada, segura y funcionando. Sin preocuparte por nada técnico.',
+    features: [
+      'Backups automáticos diarios',
+      'Actualizaciones de seguridad',
+      'Monitoreo de disponibilidad 24/7',
+      'Correcciones y ajustes menores',
+      'Informe mensual de rendimiento',
+      'Soporte vía WhatsApp en horas hábiles',
+    ],
+    stack: ['Hosting', 'SSL', 'CDN'],
+    wa: 'Hola! Me interesa el plan de Mantenimiento.',
   },
 ]
 
+// Mini terminal canvas per service card
+function ServiceIcon({ icon, color }) {
+  return (
+    <div className={styles.iconBox} style={{ borderColor: color + '44', background: color + '11' }}>
+      <span className={styles.iconGlyph} style={{ color }}>{icon}</span>
+    </div>
+  )
+}
+
+const ACCENT_COLORS = ['#9d8ec4', '#8898b8', '#b89880', '#b08090']
+
 function ServiceCard({ service, index, isActive, onClick }) {
-  const [ref, inView] = useInView()
+  const color = ACCENT_COLORS[index % ACCENT_COLORS.length]
+  const isEspecialidad = service.tag === 'especialidad'
 
   return (
     <div
-      ref={ref}
-      className={`${styles.card} ${isActive ? styles.cardActive : ''} ${inView ? styles.visible : ''}`}
-      style={{ animationDelay: `${index * 0.1}s` }}
+      className={`${styles.card} ${isActive ? styles.cardActive : ''} ${isEspecialidad ? styles.cardFeatured : ''}`}
       onClick={() => onClick(service.id)}
       data-hover
     >
       {service.tag && (
-        <span className={styles.tag}>{service.tag}</span>
+        <span className={styles.tag} style={isEspecialidad ? { color, borderColor: color + '66' } : {}}>
+          {service.tag}
+        </span>
       )}
 
       <div className={styles.cardTop}>
+        <ServiceIcon icon={service.icon} color={color} />
         <span className={styles.cardNum}>{service.id}</span>
-        <span className={styles.icon}>{service.icon}</span>
       </div>
 
       <h3 className={styles.cardTitle}>{service.title}</h3>
       <p className={styles.cardDesc}>{service.desc}</p>
 
-      <ul className={`${styles.features} ${isActive ? styles.featuresVisible : ''}`}>
-        {service.features.map((f, i) => (
-          <li key={i} className={styles.feature}>
-            <span className={styles.featureCheck}>▸</span> {f}
-          </li>
-        ))}
-      </ul>
+      {/* Price */}
+      <div className={styles.priceRow}>
+        <span className={styles.priceIcon}>◆</span>
+        <span className={styles.price} style={{ color }}>{service.price}</span>
+      </div>
+
+      {/* Expandable features */}
+      <div className={`${styles.featuresWrap} ${isActive ? styles.featuresOpen : ''}`}>
+        <ul className={styles.features}>
+          {service.features.map((f, i) => (
+            <li key={i} className={styles.feature}>
+              <span className={styles.featureCheck} style={{ color }}>▸</span>
+              {f}
+            </li>
+          ))}
+        </ul>
+        <div className={styles.stackRow}>
+          {service.stack.map(s => (
+            <span key={s} className={styles.stackTag}>{s}</span>
+          ))}
+        </div>
+      </div>
 
       <div className={styles.cardFooter}>
-        <span className={styles.learnMore}>
-          {isActive ? '[ contraer ]' : '[ ver más ]'}
+        <span className={styles.toggle}>
+          {isActive ? '[ — menos ]' : '[ + detalles ]'}
         </span>
         <a
-          href="https://wa.me/573001234567?text=Quiero%20información%20sobre%20este%20servicio"
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`https://wa.me/573001234567?text=${encodeURIComponent(service.wa)}`}
+          target="_blank" rel="noopener noreferrer"
           className={styles.ctaLink}
-          onClick={(e) => {
+          style={{ color, borderColor: color + '55' }}
+          onClick={e => {
             e.stopPropagation()
-            window.gtag?.('event', 'click_whatsapp', { event_category: 'services', event_label: service.title })
+            window.gtag?.('event', 'click_service', { event_label: service.title })
           }}
         >
           cotizar →
@@ -108,7 +159,6 @@ function ServiceCard({ service, index, isActive, onClick }) {
 export default function Services() {
   const [activeCard, setActiveCard] = useState(null)
   const [ref, inView] = useInView()
-
   const handleClick = (id) => setActiveCard(a => a === id ? null : id)
 
   return (
@@ -121,8 +171,8 @@ export default function Services() {
             ¿qué construimos?
           </h2>
           <p className={styles.subtitle}>
-            Cada proyecto es único. Cada línea de código tiene un propósito.
-            Selecciona un servicio para ver los detalles.
+            Nos especializamos en <strong>landing pages</strong> y <strong>tiendas online</strong>.
+            También ofrecemos SEO y mantenimiento para que tu inversión dure.
           </p>
         </div>
 
@@ -136,6 +186,19 @@ export default function Services() {
               onClick={handleClick}
             />
           ))}
+        </div>
+
+        {/* Bottom note */}
+        <div className={styles.note}>
+          <span className={styles.noteIcon}>// </span>
+          Los precios mostrados son referenciales. Cada proyecto se cotiza según sus requerimientos.
+          <a
+            href="https://wa.me/573001234567?text=Hola!%20Quiero%20una%20cotización%20personalizada."
+            target="_blank" rel="noopener noreferrer"
+            className={styles.noteLink}
+          >
+            Solicitar cotización gratis →
+          </a>
         </div>
       </div>
     </section>
